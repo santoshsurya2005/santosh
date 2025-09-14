@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Heap Sort Visualization</title>
+  <link rel="stylesheet" href="heap.css"/>
+</head>
+<body>
+  <!-- Navbar -->
+  <header>
+    <div class="navbar">
+      <div class="logo">
+        <a href="index.html">CODE VISUALIZER</a>
+      </div>
+      <nav>
+        <ul class="nav-links">
+          <li><a href="index.html">Home</a></li>
+          <li><a href="features.html">Features</a></li>
+          <li class="dropdown">
+            <a href="sorting.html">Sorting</a>
+            <ul class="dropdown-menu">
+              <li><a href="quick_sort.html">Quick Sort</a></li>
+              <li><a href="merge_sort.html">Merge Sort</a></li>
+              <li><a href="heap_sort.html" class="active">Heap Sort</a></li>
+              <li><a href="insertion_sort.html">Insertion Sort</a></li>
+              <li><a href="selection_sort.html">Selection Sort</a></li>
+              <li><a href="bubble_sort.html">Bubble Sort</a></li>
+            </ul>
+          </li>
+          <li class="dropdown">
+            <a href="searching.html">Searching</a>
+            <ul class="dropdown-menu">
+              <li><a href="linear_search.html">Linear Search</a></li>
+              <li><a href="binary_search.html">Binary Search</a></li>
+            </ul>
+          </li>
+          <li><a href="contact_us.html">Contact Us</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <div class="container">
+    <!-- Visualization Section -->
+    <div class="visualization-section">
+      <header class="visualization-header">
+        <h1>Heap Sort Visualization</h1>
+      </header>
+
+      <section class="controls-container">
+        <div class="controls">
+          <div class="control-item">
+            <label for="arrayLength">Array Length:</label>
+            <input type="number" id="arrayLength" min="2" max="50" value="5">
+          </div>
+          <div class="control-item">
+            <label for="arrayValues">Array Values (comma-separated):</label>
+            <input type="text" id="arrayValues" placeholder="e.g., 5,3,8,6,2">
+          </div>
+          <div class="control-item">
+            <button id="generateArray">Generate Array</button>
+            <button id="startSort">Start Sort</button>
+          </div>
+          <div class="control-item">
+            <label for="speedControl">Speed Control (ms):</label>
+            <input type="range" id="speedControl" min="100" max="5000" value="1000">
+            <span id="speedValue">1000 ms</span>
+          </div>
+          <div class="control-item">
+            <label for="pauseTime">Pause Between Phases (ms):</label>
+            <input type="number" id="pauseTime" min="100" value="1000">
+          </div>
+          <div class="control-item">
+            <button id="pauseResume">Pause</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="sorting-container">
+        <div id="bars-container"></div>
+      </section>
+
+      <section class="steps-board">
+        <h3>Phases:</h3>
+        <div id="phasesBoard"></div>
+      </section>
+    </div>
+
+    <!-- Code Section -->
+    <div class="code-section">
+      <header class="code-header">
+        <h1>Heap Sort C Code</h1>
+      </header>
+      <pre>
+#include &lt;stdio.h&gt;
+
+void swap(int* a, int* b) {
+  int t = *a; *a = *b; *b = t;
+}
+
+void heapify(int arr[], int n, int i) {
+  int largest = i;
+  int l = 2*i+1;
+  int r = 2*i+2;
+
+  if (l<n && arr[l]>arr[largest])
+    largest = l;
+  if (r<n && arr[r]>arr[largest])
+    largest = r;
+
+  if (largest != i) {
+    swap(&arr[i], &arr[largest]);
+    heapify(arr, n, largest);
+  }
+}
+
+void heapSort(int arr[], int n) {
+  for (int i=n/2-1;i>=0;i--)
+    heapify(arr,n,i);
+  for (int i=n-1;i>0;i--) {
+    swap(&arr[0], &arr[i]);
+    heapify(arr,i,0);
+  }
+}
+
+int main() {
+  int arr[]={12,11,13,5,6,7};
+  int n=6;
+  heapSort(arr,n);
+  for(int i=0;i<n;i++) printf("%d ",arr[i]);
+}
+      </pre>
+    </div>
+  </div>
+
+  <script src="heap.js"></script>
+</body>
+</html>
